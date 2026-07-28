@@ -1,19 +1,25 @@
 import { hero } from '../content.js'
-import ImageSlideshow from './ImageSlideshow.jsx'
-import photo1 from '../assets/1.png'
-import photo2 from '../assets/2.png'
-import photo3 from '../assets/3.png'
+import heroVideo from '../assets/FHSMH-Video-Dec-30th-1.mp4'
 import './Hero.css'
-
-const heroImages = [
-  { src: photo1, alt: 'Hasan Suleman Memorial Hospital under construction' },
-  { src: photo2, alt: 'HSMH hospital building along the National Highway, Malir' },
-  { src: photo3, alt: 'Construction progress at Hasan Suleman Memorial Hospital' },
-]
 
 export default function Hero() {
   return (
     <section id="home" className="hero">
+      <video
+        className="hero__video"
+        src={heroVideo}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-label="Hasan Suleman Memorial Hospital construction progress video"
+      >
+        Your browser does not support the video tag.
+      </video>
+
+      <div className="hero__overlay" />
+
       <div className="container hero__row">
         <div className="hero__copy">
           <p className="eyebrow">{hero.eyebrow}</p>
@@ -37,10 +43,6 @@ export default function Hero() {
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="hero__art">
-          <ImageSlideshow images={heroImages} />
         </div>
       </div>
     </section>

@@ -1,12 +1,8 @@
 .header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  position: relative;
+  width: 100%;
   z-index: 1000;
-  background: color-mix(in srgb, var(--bg-elevated) 75%, transparent);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: #ffffff;
   border-bottom: 1px solid transparent;
   transition: all var(--transition);
   height: 95px;
@@ -38,13 +34,14 @@
   text-decoration: none;
 }
 
-/* Bigger Logo */
 .header__logo {
-  width: 80px;
-  height: 80px;
+  width: 110px;
+  height: 110px;
   object-fit: contain;
   border-radius: 12px;
   flex-shrink: 0;
+  background: #ffffff;
+  padding: 4px;
 }
 
 .header__wordmark {
@@ -152,8 +149,8 @@
   }
 
   .header__logo {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
   }
 
   .header__wordmark {

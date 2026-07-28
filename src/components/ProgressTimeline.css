@@ -2,6 +2,19 @@
   background: var(--surface);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
+  overflow: hidden; /* keep the full-bleed trick from causing horizontal scroll */
+}
+
+/* --- Full-bleed override, scoped to this section only ---
+   Breaks .container out of whatever max-width/centering your
+   global styles apply, so this section can use the full
+   viewport width while the rest of the site is untouched. */
+.progress .container {
+  max-width: none;
+  width: 100%;
+  margin: 0;
+  padding: 0 clamp(24px, 6vw, 96px);
+  box-sizing: border-box;
 }
 
 .progress__head {
@@ -28,15 +41,17 @@
   grid-template-columns: repeat(5, 1fr);
   gap: 0;
   position: relative;
-  padding: 0 8px;
 }
 
+/* Track spans center-of-first-marker to center-of-last-marker.
+   With 5 equal columns, each center sits at (i + 0.5) * 20% ->
+   first = 10%, last = 90%, so inset 10% from each side. */
 .progress__timeline::before {
   content: '';
   position: absolute;
   top: 24px;
-  left: 30px;
-  right: 30px;
+  left: 10%;
+  right: 10%;
   height: 3px;
   background: var(--border-strong);
   z-index: 0;
@@ -47,18 +62,25 @@
   content: '';
   position: absolute;
   top: 24px;
-  left: 30px;
+  left: 10%;
   height: 3px;
   background: linear-gradient(90deg, var(--primary), var(--accent-gold));
   z-index: 0;
   border-radius: 2px;
   width: 0%;
   animation: progressFill 2s ease forwards;
+  animation-play-state: paused;
 }
 
+.progress__timeline.is-visible::after {
+  animation-play-state: running;
+}
+
+/* Fill target driven by --progress-fill, set inline from JS
+   based on how many stages are actually done/active. */
 @keyframes progressFill {
   0% { width: 0%; }
-  100% { width: 40%; }
+  100% { width: var(--progress-fill, 40%); }
 }
 
 .progress__stage {
@@ -69,6 +91,15 @@
   align-items: center;
   gap: 14px;
   text-align: center;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  transition-delay: calc(var(--stage-index, 0) * 120ms);
+}
+
+.progress__timeline.is-visible .progress__stage {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .progress__marker {
@@ -134,11 +165,70 @@
   margin-top: 64px;
 }
 
+/* --- Video block --- */
+.video-block__frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+}
+
+.video-block__el {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-block__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: opacity var(--transition);
+}
+
+.video-block__play-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.video-block__copy {
+  margin-top: 12px;
+}
+
+.video-block__title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0 0 4px;
+}
+
+.video-block__caption {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
 @media (max-width: 880px) {
+  .progress .container {
+    padding: 0 20px;
+  }
+
   .progress__timeline {
     grid-template-columns: 1fr;
     gap: 24px;
-    padding: 0;
   }
 
   .progress__timeline::before,
@@ -155,7 +245,9 @@
     background: var(--bg-elevated);
     border-radius: var(--radius-sm);
     border: 1px solid var(--border);
-    transition: all var(--transition);
+    transition: box-shadow var(--transition), border-color var(--transition),
+      opacity 0.6s ease, transform 0.6s ease;
+    transition-delay: calc(var(--stage-index, 0) * 100ms);
   }
 
   .progress__stage:hover {
@@ -167,5 +259,18 @@
 @media (max-width: 720px) {
   .progress__videos {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress__timeline::after,
+  .progress__stage--active .progress__marker {
+    animation: none;
+    width: var(--progress-fill, 40%);
+  }
+  .progress__stage {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

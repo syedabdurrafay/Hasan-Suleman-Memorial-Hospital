@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { progress } from '../content.js'
 import VideoBlock from './VideoBlock.jsx'
 import siteWalkthrough from '../assets/Progress-ection-video.mp4'
@@ -5,6 +6,31 @@ import yearInReview from '../assets/FHSMH-Progress-2025.mp4'
 import './ProgressTimeline.css'
 
 export default function ProgressTimeline() {
+  const timelineRef = useRef(null)
+
+  const total = progress.stages.length
+  const doneCount = progress.stages.filter((s) => s.status === 'done').length
+  const hasActive = progress.stages.some((s) => s.status === 'active')
+  const progressPercent = ((doneCount + (hasActive ? 0.5 : 0)) / total) * 100
+
+  useEffect(() => {
+    const el = timelineRef.current
+    if (!el) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('is-visible')
+          observer.disconnect() // animate once
+        }
+      },
+      { threshold: 0.3 }
+    )
+
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <section id="progress" className="progress section">
       <div className="container">
@@ -14,9 +40,17 @@ export default function ProgressTimeline() {
           <p className="progress__body">{progress.body}</p>
         </div>
 
-        <ol className="progress__timeline">
+        <ol
+          ref={timelineRef}
+          className="progress__timeline"
+          style={{ '--progress-fill': `${progressPercent}%` }}
+        >
           {progress.stages.map((stage, i) => (
-            <li key={stage.label} className={`progress__stage progress__stage--${stage.status}`}>
+            <li
+              key={stage.label}
+              className={`progress__stage progress__stage--${stage.status}`}
+              style={{ '--stage-index': i }}
+            >
               <div className="progress__marker">
                 {stage.status === 'done' ? '✓' : i + 1}
               </div>

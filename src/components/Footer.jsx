@@ -1,41 +1,64 @@
-import logo from '../assets/logo.svg'
+import logo from '../assets/logo.jpeg'
 import { footer } from '../content.js'
 import './Footer.css'
 
 export default function Footer() {
   return (
     <footer id="contact" className="footer">
-      <div className="container footer__row">
+      <div className="footer__container">
+
         <div className="footer__brand">
-          <img src={logo} alt="" className="footer__logo" />
-          <span>Friends of HSMH</span>
+          <img
+            src={logo}
+            alt="Hasan Suleman Memorial Hospital"
+            className="footer__logo"
+          />
+
+          <h3 className="footer__brand-name">
+            Hasan Suleman Memorial Hospital
+          </h3>
+
           <p className="footer__tagline">
-            Building Hasan Suleman Memorial Hospital, a Sadqa Jaria for the Malir District of
-            Karachi.
+            Building Hasan Suleman Memorial Hospital as a lasting
+            <strong> Sadaqah Jariyah</strong> to provide compassionate,
+            affordable and quality healthcare for the underserved communities
+            of Malir District, Karachi.
           </p>
         </div>
 
         <div className="footer__contact">
-          <h4>Contact us</h4>
-          <a href={`mailto:${footer.email}`}>{footer.email}</a>
+          <h4>Contact Us</h4>
+
+          <a href={`mailto:${footer.email}`}>
+            {footer.email}
+          </a>
+
           <p>{footer.address}</p>
-          <a href={`tel:${footer.phone.replace(/[^0-9+]/g, '')}`}>{footer.phone}</a>
+
+          <a href={`tel:${footer.phone.replace(/[^0-9+]/g, '')}`}>
+            {footer.phone}
+          </a>
         </div>
 
         <div className="footer__links">
-          <h4>Useful links</h4>
+          <h4>Quick Links</h4>
+
           <ul>
-            {footer.links.map((l) => (
-              <li key={l.label}>
-                <a href={l.href}>{l.label}</a>
+            {footer.links.map((link) => (
+              <li key={link.label}>
+                <a href={link.href}>
+                  {link.label}
+                </a>
               </li>
             ))}
           </ul>
         </div>
+
       </div>
 
-      <div className="container footer__bottom">
+      <div className="footer__bottom">
         <span>{footer.copyright}</span>
+
         <span>{footer.credit}</span>
       </div>
     </footer>
