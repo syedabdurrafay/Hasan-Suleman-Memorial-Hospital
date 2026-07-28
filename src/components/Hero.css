@@ -1,0 +1,152 @@
+.hero {
+  padding: 120px 0 60px;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+}
+
+.hero__row {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.hero__copy {
+  position: relative;
+  z-index: 2;
+}
+
+.hero .eyebrow {
+  margin-bottom: 8px;
+}
+
+.hero__title {
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  line-height: 1.08;
+  margin: 20px 0 24px;
+  max-width: 14ch;
+  background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+[data-theme='dark'] .hero__title {
+  background: linear-gradient(135deg, var(--text) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero__body {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  max-width: 52ch;
+  margin-bottom: 36px;
+  line-height: 1.8;
+}
+
+.hero__ctas {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+
+.hero__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 24px;
+  border-top: 1px solid var(--border);
+  padding-top: 32px;
+}
+
+.hero__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hero__stat-value {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--primary);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.hero__stat-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.hero__art {
+  justify-self: center;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+}
+
+.hero__art::before {
+  content: '';
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(circle at 30% 40%, var(--primary-light), transparent 70%);
+  border-radius: 50%;
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.hero__art > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    padding: 100px 0 40px;
+  }
+
+  .hero__row {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .hero__title {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero__body {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero__ctas {
+    justify-content: center;
+  }
+
+  .hero__stats {
+    justify-items: center;
+  }
+
+  .hero__stat {
+    text-align: center;
+  }
+
+  .hero__art {
+    order: -1;
+    max-width: 340px;
+  }
+
+  .hero__art::before {
+    display: none;
+  }
+}

@@ -1,0 +1,131 @@
+.giving {
+  background: var(--bg);
+  position: relative;
+}
+
+.giving__intro {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 50px;
+  align-items: center;
+  margin-bottom: 56px;
+}
+
+.giving__head {
+  max-width: 62ch;
+}
+
+.giving__media {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+.giving__media img {
+  width: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.giving__media:hover img {
+  transform: scale(1.03);
+}
+
+.giving__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(10, 107, 88, 0.1), transparent);
+}
+
+.giving__title {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  margin: 14px 0 16px;
+}
+
+.giving__body {
+  color: var(--text-muted);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.giving__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 28px;
+}
+
+.giving__card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.giving__card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent-gold));
+  transform: scaleX(0);
+  transition: transform var(--transition);
+  transform-origin: left;
+}
+
+.giving__card:hover::before {
+  transform: scaleX(1);
+}
+
+.giving__card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--border-strong);
+}
+
+.giving__card-title {
+  font-size: 1.3rem;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.giving__card-body {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  flex: 1;
+  line-height: 1.7;
+}
+
+.giving__cta {
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+@media (max-width: 780px) {
+  .giving__intro {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .giving__media {
+    order: -1;
+  }
+
+  .giving__media img {
+    max-height: 220px;
+  }
+
+  .giving__grid {
+    grid-template-columns: 1fr;
+  }
+}

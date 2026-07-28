@@ -1,0 +1,124 @@
+.footer {
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+  padding-top: 60px;
+  position: relative;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--accent-gold), var(--primary));
+  background-size: 200% 100%;
+  animation: shimmer 3s linear infinite;
+}
+
+.footer__row {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.footer__logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.footer__brand-name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.footer__tagline {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  max-width: 34ch;
+  line-height: 1.7;
+}
+
+.footer h4 {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+.footer__contact {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.92rem;
+}
+
+.footer__contact a {
+  transition: color var(--transition);
+}
+
+.footer__contact a:hover {
+  color: var(--primary);
+}
+
+.footer__links ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.92rem;
+}
+
+.footer__links a {
+  transition: color var(--transition);
+  display: inline-block;
+}
+
+.footer__links a:hover {
+  color: var(--primary);
+  transform: translateX(4px);
+}
+
+.footer__bottom {
+  border-top: 1px solid var(--border);
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 720px) {
+  .footer__row {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+}
